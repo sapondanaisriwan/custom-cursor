@@ -1,0 +1,70 @@
+/* ==UserStyle==
+@name           Custom Cursor
+@author         sapondanaisriwan <sapondanaisriwan@gmail.com> (https://github.com/sapondanaisriwan)
+@description    If you want to submit a bug or request a feature please report via github issue. Since I receive so many emails, I can't reply to them all.
+@namespace      https://userstyles.world/user/sapondanaisriwan
+@homepageURL    https://github.com/sapondanaisriwan/custom-cusor
+@supportURL     https://github.com/sapondanaisriwan/custom-cusor/issues
+@version        1.0.0
+@license        MIT
+@preprocessor   stylus
+
+@var select cursorTamplate    "⚒️ Cursor Template" {
+    "Starwars" : "starwar",
+    "Adashima" : "adashima",
+    "Rick roll" : "rickroll",
+    "None": "None"
+}
+@var select   customCursor    "⚒️ Custom Cusor" ["Disabled", "Enabled"]
+@var text     cursorImage1    "  🖱️ Cursor1"   "'https://user-images.githubusercontent.com/64634605/227773863-a398738a-e6cc-4bf9-9d52-2b37f108808d.png'"
+@var text     cursorImage2    "  🖱️ Cursor2"   "'https://user-images.githubusercontent.com/64634605/227774059-f666a9fe-3fb8-401c-8a8f-5e6964fbbf5d.png'"
+@var select   note            "📒 Note: Icon size limits is at 128x128px" ["None"]
+
+==/UserStyle== */
+@-moz-document regexp(".*") {
+
+    /* Variables */
+    i=!important;
+    :root {
+        --customCursorImg1: url(cursorImage1);
+        --customCursorImg2: url(cursorImage2);
+    }
+
+    cursorObj= {
+        "starwar": {
+            img1: "https://user-images.githubusercontent.com/64634605/227773863-a398738a-e6cc-4bf9-9d52-2b37f108808d.png",
+            img2: "https://user-images.githubusercontent.com/64634605/227774059-f666a9fe-3fb8-401c-8a8f-5e6964fbbf5d.png"
+        }
+
+        ,
+        "adashima": {
+            img1: "https://user-images.githubusercontent.com/64634605/227769567-cbf040df-140b-47ae-a482-5af955d36b8a.png",
+            img2: "https://user-images.githubusercontent.com/64634605/227770026-97aa4c8e-629b-444e-9145-353537344750.png"
+        }
+
+        ,
+        "rickroll": {
+            img1: "https://user-images.githubusercontent.com/64634605/227774655-6520319f-71a1-48f7-92e2-8787e54b867d.png",
+            img2: "https://user-images.githubusercontent.com/64634605/227774573-a7f2c21e-c4d6-4cef-8512-3f41b1cd7fe7.png"
+        }
+    }
+
+    for myCursor in cursorObj {
+        if (myCursor==cursorTamplate) {
+            :root {
+                --cursorTemplate1: url(cursorObj[myCursor].img1);
+                --cursorTemplate2: url(cursorObj[myCursor].img2);
+            }
+        }
+    }
+
+    html, body {
+        cursor: var(--cursorTemplate1), auto i if cursorTamplate !="None";
+        cursor: var(--customCursorImg1), auto i if customCursor=="Enabled";
+    }
+
+    body button, body [type='button'], body input[type='reset'], body input[type='submit'], body [role="button"], ::-webkit-search-cancel-button, ::-webkit-search-decoration, ::-webkit-scrollbar-button, ::-webkit-file-upload-button, [role^=button], [type="search"]::-webkit-search-cancel-button, a, select, [type="search"]::-webkit-search-decoration, input[type=submit], :link, :visited, a > *, img, ::-webkit-scrollbar-button, ::-webkit-file-upload-button, input, a:-webkit-any-link, ::-webkit-scrollbar {
+        cursor: var(--cursorTemplate2), pointer i if cursorTamplate !="None";
+        cursor: var(--customCursorImg2), pointer i if customCursor=="Enabled";
+    }
+}
